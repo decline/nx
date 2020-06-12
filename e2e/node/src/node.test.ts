@@ -266,7 +266,9 @@ forEachCli((currentCLIName) => {
       ensureProject();
 
       const nodeLib = uniq('nodelib');
-      runCLI(`generate @nrwl/node:lib ${nodeLib} --publishable`);
+      runCLI(
+        `generate @nrwl/node:lib ${nodeLib} --publishable --importPath=@proj/lib`
+      );
       checkFilesExist(`libs/${nodeLib}/package.json`);
       const tslibConfig = readJson(`libs/${nodeLib}/tsconfig.lib.json`);
       expect(tslibConfig).toEqual({
@@ -423,9 +425,9 @@ forEachCli((currentCLIName) => {
       ensureProject();
 
       runCLI(`generate @nrwl/express:app ${app}`);
-      runCLI(`generate @nrwl/node:lib ${parentLib} --publishable=true`);
-      runCLI(`generate @nrwl/node:lib ${childLib} --publishable=true`);
-      runCLI(`generate @nrwl/node:lib ${childLib2} --publishable=true`);
+      runCLI(`generate @nrwl/node:lib ${parentLib} --buildable=true`);
+      runCLI(`generate @nrwl/node:lib ${childLib} --buildable=true`);
+      runCLI(`generate @nrwl/node:lib ${childLib2} --buildable=true`);
 
       // create dependencies by importing
       const createDep = (parent, children: string[]) => {
